@@ -14,8 +14,8 @@ DT_L3 = Motor(Ports.PORT13, GearSetting.RATIO_6_1, True)
 DT_R1 = Motor(Ports.PORT18, GearSetting.RATIO_6_1, False)
 DT_R2 = Motor(Ports.PORT19, GearSetting.RATIO_6_1, False)
 DT_R3 = Motor(Ports.PORT20, GearSetting.RATIO_6_1, False)
-Stage1Motor = Motor(Ports.PORT4, GearSetting.RATIO_6_1, False)
-Stage2Motor = Motor(Ports.PORT7, GearSetting.RATIO_6_1, False)
+Stage1Motor = Motor(Ports.PORT21, GearSetting.RATIO_6_1, False)
+Stage2Motor = Motor(Ports.PORT1, GearSetting.RATIO_6_1, False)
 Preload_Arm = DigitalOut(brain.three_wire_port.a)
 
 

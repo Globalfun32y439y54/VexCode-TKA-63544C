@@ -85,14 +85,35 @@ def when_started2():
 def onauton_autonomous_0():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
     # Sets Drive Train Left And Right Motor's To 0 Volts At The Start Of Autonomous
+    DT_R_Velocity = 0
+    DT_L_Velocity = 0
+    while True:
+        DT_L1.spin(FORWARD, DT_L_Velocity, VOLT)
+        DT_L2.spin(FORWARD, DT_L_Velocity, VOLT)
+        DT_L3.spin(FORWARD, DT_L_Velocity, VOLT)
+        DT_R1.spin(FORWARD, DT_R_Velocity, VOLT)
+        DT_R2.spin(FORWARD, DT_R_Velocity, VOLT)
+        DT_R3.spin(FORWARD, DT_R_Velocity, VOLT)
+        wait(5, MSEC)
 
 def onauton_autonomous_1():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
     # Initiates intake and vertical stage motors upon autonomous startup
+    while True:
+        Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
+        wait(5, MSEC)
 
 def onauton_autonomous_2():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
-    pass
+    Intake_Voltage = 12
+    # Drive forward to the first 3 blocks
+    # Acceleration ramp up
+    for repeat_count in range(int(Number_of_steps)):
+        DT_L_Velocity = DT_L_Velocity + Voltage_step
+        DT_R_Velocity = DT_R_Velocity + Voltage_step
+        wait(Ramp_delay, SECONDS)
+        wait(5, MSEC)
+    wait(0.52, SECONDS)
 
 # create a function for handling the starting and stopping of all autonomous tasks
 def vexcode_auton_function():

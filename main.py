@@ -59,19 +59,19 @@ myVariable = 0
 DT_L_Velocity = 0
 DT_R_Velocity = 0
 Intake_Voltage = 0
-Voltage_step = 0
+Velocity_step = 0
 Number_of_steps = 0
 Ramp_delay = 0
 
 def when_started1():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Initializes required variables during robot startup
     Ramp_delay = 0.01
-    Voltage_step = 0.25
-    Number_of_steps = 12 / Voltage_step
+    Velocity_step = 5
+    Number_of_steps = 100 / Velocity_step
 
 def when_started2():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Synchronizes The Voltage Of The Left And Right Drivetrain Motors With The Controller's Joystick Input
     while True:
         DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
@@ -83,50 +83,50 @@ def when_started2():
         wait(5, MSEC)
 
 def onauton_autonomous_0():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
-    # Sets Drive Train Left And Right Motor's To 0 Volts At The Start Of Autonomous
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    # Sets Drive Train Left And Right Motor's Velocity to 0 At The Start Of Autonomous
     DT_R_Velocity = 0
     DT_L_Velocity = 0
     while True:
-        DT_L1.spin(FORWARD, DT_L_Velocity, VOLT)
-        DT_L2.spin(FORWARD, DT_L_Velocity, VOLT)
-        DT_L3.spin(FORWARD, DT_L_Velocity, VOLT)
-        DT_R1.spin(FORWARD, DT_R_Velocity, VOLT)
-        DT_R2.spin(FORWARD, DT_R_Velocity, VOLT)
-        DT_R3.spin(FORWARD, DT_R_Velocity, VOLT)
+        DT_L1.set_velocity(DT_L_Velocity, PERCENT)
+        DT_L2.set_velocity(DT_L_Velocity, PERCENT)
+        DT_L3.set_velocity(DT_L_Velocity, PERCENT)
+        DT_R1.set_velocity(DT_R_Velocity, PERCENT)
+        DT_R2.set_velocity(DT_R_Velocity, PERCENT)
+        DT_R3.set_velocity(DT_R_Velocity, PERCENT)
         wait(5, MSEC)
 
 def onauton_autonomous_1():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Initiates intake and vertical stage motors upon autonomous startup
     while True:
         Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
         wait(5, MSEC)
 
 def onauton_autonomous_2():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Voltage_step, Number_of_steps, Ramp_delay
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     Intake_Voltage = 12
     # Drive forward to the first 3 blocks
     # Acceleration ramp up
     for repeat_count in range(int(Number_of_steps)):
-        DT_L_Velocity = DT_L_Velocity + Voltage_step
-        DT_R_Velocity = DT_R_Velocity + Voltage_step
+        DT_L_Velocity = DT_L_Velocity + Velocity_step
+        DT_R_Velocity = DT_R_Velocity + Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
     wait(0.52, SECONDS)
     # Acceleration ramp down *turns right and continues forward
     for repeat_count2 in range(int(Number_of_steps / 2)):
-        DT_L_Velocity = DT_L_Velocity + -Voltage_step
+        DT_L_Velocity = DT_L_Velocity + -Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
     # Acceleration ramp down to zero
     for repeat_count3 in range(int(Number_of_steps / 2)):
-        DT_L_Velocity = DT_L_Velocity + -Voltage_step
-        DT_R_Velocity = DT_R_Velocity + -Voltage_step
+        DT_L_Velocity = DT_L_Velocity + -Velocity_step
+        DT_R_Velocity = DT_R_Velocity + -Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
     for repeat_count4 in range(int(Number_of_steps / 2)):
-        DT_R_Velocity = DT_R_Velocity + -Voltage_step
+        DT_R_Velocity = DT_R_Velocity + -Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
 

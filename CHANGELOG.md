@@ -1,3 +1,9 @@
+# 1.0.3 - 10/1/25
+
+- [Changed from voltage to velocity](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/f96c7562fdf5433ac0da178739c36baf698ffc8c)
+
+----------
+
 # 1.0.2 - 9/30/25
 
 - [Changed Stage1 and Stage2 motor ports](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/9575101b6d31f3376b70bebdfd1751b04c03bb88)

@@ -66,7 +66,7 @@ Ramp_delay = 0
 def when_started1():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Initializes required variables during robot startup
-    Ramp_delay = 0.01
+    Ramp_delay = 0.02
     Velocity_step = 5
     Number_of_steps = 100 / Velocity_step
 
@@ -98,12 +98,24 @@ def onauton_autonomous_0():
 
 def onauton_autonomous_1():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    # Tells to motors to spin
+    while True:
+        DT_L1.spin(FORWARD)
+        DT_L2.spin(FORWARD)
+        DT_L3.spin(FORWARD)
+        DT_R1.spin(FORWARD)
+        DT_R2.spin(FORWARD)
+        DT_R3.spin(FORWARD)
+        wait(5, MSEC)
+
+def onauton_autonomous_2():
+    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Initiates intake and vertical stage motors upon autonomous startup
     while True:
         Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
         wait(5, MSEC)
 
-def onauton_autonomous_2():
+def onauton_autonomous_3():
     global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     Intake_Voltage = 12
     # Drive forward to the first 3 blocks
@@ -113,16 +125,16 @@ def onauton_autonomous_2():
         DT_R_Velocity = DT_R_Velocity + Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
-    wait(0.52, SECONDS)
+    wait(0.62, SECONDS)
     # Acceleration ramp down *turns right and continues forward
     for repeat_count2 in range(int(Number_of_steps / 2)):
         DT_L_Velocity = DT_L_Velocity + -Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
+    wait(1.2, SECONDS)
     # Acceleration ramp down to zero
     for repeat_count3 in range(int(Number_of_steps / 2)):
         DT_L_Velocity = DT_L_Velocity + -Velocity_step
-        DT_R_Velocity = DT_R_Velocity + -Velocity_step
         wait(Ramp_delay, SECONDS)
         wait(5, MSEC)
     for repeat_count4 in range(int(Number_of_steps / 2)):
@@ -136,6 +148,7 @@ def vexcode_auton_function():
     auton_task_0 = Thread( onauton_autonomous_0 )
     auton_task_1 = Thread( onauton_autonomous_1 )
     auton_task_2 = Thread( onauton_autonomous_2 )
+    auton_task_3 = Thread( onauton_autonomous_3 )
     # wait for the driver control period to end
     while( competition.is_autonomous() and competition.is_enabled() ):
         # wait 10 milliseconds before checking again
@@ -144,6 +157,7 @@ def vexcode_auton_function():
     auton_task_0.stop()
     auton_task_1.stop()
     auton_task_2.stop()
+    auton_task_3.stop()
 
 def vexcode_driver_function():
     # Start the driver control tasks

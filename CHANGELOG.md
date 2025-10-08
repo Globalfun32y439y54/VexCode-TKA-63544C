@@ -1,3 +1,9 @@
+# 1.0.4 - 10/7/25
+
+- [Fix robot not moving at the start of autonomous](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/96be4fbfbe4b472b3f10967e1f681668372108a3)
+
+----------
+
 # 1.0.3 - 10/1/25
 
 - [Changed from voltage to velocity](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/f96c7562fdf5433ac0da178739c36baf698ffc8c)

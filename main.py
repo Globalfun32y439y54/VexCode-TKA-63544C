@@ -83,10 +83,8 @@ def when_started2():
         wait(5, MSEC)
 
 def onauton_autonomous_0():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
-    # Sets Drive Train Left And Right Motor's Velocity to 0 At The Start Of Autonomous
-    DT_R_Velocity = 0
-    DT_L_Velocity = 0
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+    # Sets left and right drive train motor to velocity set by autonomous code
     while True:
         DT_L1.set_velocity(DT_L_Velocity, PERCENT)
         DT_L2.set_velocity(DT_L_Velocity, PERCENT)
@@ -116,8 +114,16 @@ def onauton_autonomous_2():
         wait(5, MSEC)
 
 def onauton_autonomous_3():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+    # Vertical stage motors upon autonomous code request
+    while True:
+        Stage2Motor.spin(FORWARD, Ramp_voltage, VOLT)
+        wait(5, MSEC)
+
+def onauton_autonomous_4():
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     Intake_Voltage = 12
+    Ramp_voltage = 3
     # Drive forward to the first 3 blocks
     # Acceleration ramp up
     for repeat_count in range(int(Number_of_steps)):
@@ -149,6 +155,7 @@ def vexcode_auton_function():
     auton_task_1 = Thread( onauton_autonomous_1 )
     auton_task_2 = Thread( onauton_autonomous_2 )
     auton_task_3 = Thread( onauton_autonomous_3 )
+    auton_task_4 = Thread( onauton_autonomous_4 )
     # wait for the driver control period to end
     while( competition.is_autonomous() and competition.is_enabled() ):
         # wait 10 milliseconds before checking again
@@ -158,6 +165,7 @@ def vexcode_auton_function():
     auton_task_1.stop()
     auton_task_2.stop()
     auton_task_3.stop()
+    auton_task_4.stop()
 
 def vexcode_driver_function():
     # Start the driver control tasks

@@ -55,23 +55,23 @@ print("\033[2J")
 # 
 # ------------------------------------------
 
-myVariable = 0
 DT_L_Velocity = 0
 DT_R_Velocity = 0
 Intake_Voltage = 0
 Velocity_step = 0
 Number_of_steps = 0
 Ramp_delay = 0
+Ramp_voltage = 0
 
 def when_started1():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Initializes required variables during robot startup
     Ramp_delay = 0.02
     Velocity_step = 5
     Number_of_steps = 100 / Velocity_step
 
 def when_started2():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Synchronizes The Voltage Of The Left And Right Drivetrain Motors With The Controller's Joystick Input
     while True:
         DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
@@ -83,7 +83,7 @@ def when_started2():
         wait(5, MSEC)
 
 def onauton_autonomous_0():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     # Sets Drive Train Left And Right Motor's Velocity to 0 At The Start Of Autonomous
     DT_R_Velocity = 0
     DT_L_Velocity = 0
@@ -97,7 +97,7 @@ def onauton_autonomous_0():
         wait(5, MSEC)
 
 def onauton_autonomous_1():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Tells to motors to spin
     while True:
         DT_L1.spin(FORWARD)
@@ -109,14 +109,14 @@ def onauton_autonomous_1():
         wait(5, MSEC)
 
 def onauton_autonomous_2():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Initiates intake and vertical stage motors upon autonomous startup
     while True:
         Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
         wait(5, MSEC)
 
 def onauton_autonomous_3():
-    global myVariable, DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay
     Intake_Voltage = 12
     # Drive forward to the first 3 blocks
     # Acceleration ramp up

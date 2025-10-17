@@ -155,19 +155,14 @@ def onauton_autonomous_1():
 
 def onauton_autonomous_2():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Initiates intake and vertical stage motors upon autonomous startup
     while True:
+        # Spins intake motors upon autonomous startup
         Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
-        wait(5, MSEC)
-
-def onauton_autonomous_3():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Vertical stage motors upon autonomous code request
-    while True:
+        # Spins vertical stage motors upon autonomous code request
         Stage2Motor.spin(FORWARD, Ramp_voltage, VOLT)
         wait(5, MSEC)
 
-def onauton_autonomous_4():
+def onauton_autonomous_3():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     Intake_Voltage = 12
     Ramp_voltage = 4
@@ -198,7 +193,6 @@ def vexcode_auton_function():
     auton_task_1 = Thread( onauton_autonomous_1 )
     auton_task_2 = Thread( onauton_autonomous_2 )
     auton_task_3 = Thread( onauton_autonomous_3 )
-    auton_task_4 = Thread( onauton_autonomous_4 )
     # wait for the driver control period to end
     while( competition.is_autonomous() and competition.is_enabled() ):
         # wait 10 milliseconds before checking again
@@ -208,7 +202,6 @@ def vexcode_auton_function():
     auton_task_1.stop()
     auton_task_2.stop()
     auton_task_3.stop()
-    auton_task_4.stop()
 
 def vexcode_driver_function():
     # Start the driver control tasks

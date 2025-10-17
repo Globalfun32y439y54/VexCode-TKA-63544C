@@ -170,19 +170,26 @@ def onauton_autonomous_3():
 def onauton_autonomous_4():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     Intake_Voltage = 12
-    Ramp_voltage = 3
+    Ramp_voltage = 4
     # Drive forward to the first 3 blocks
     # Acceleration ramp up
     DT_L_Velocity = 50
     DT_R_Velocity = 50
-    wait(0.91, SECONDS)
+    wait(0.9, SECONDS)
     # Acceleration ramp down *turns right and continues forward
     DT_L_Velocity = 0
     DT_R_Velocity = 0
     wait(1.7, SECONDS)
     DT_R_Velocity = 25
     # Acceleration ramp down to zero
-    wait(0.4, SECONDS)
+    wait(1, SECONDS)
+    DT_R_Velocity = 0
+    wait(0.1, SECONDS)
+    DT_R_Velocity = 25
+    DT_L_Velocity = 25
+    wait(0.2, SECONDS)
+    DT_R_Velocity = 0
+    DT_L_Velocity = 0
 
 # create a function for handling the starting and stopping of all autonomous tasks
 def vexcode_auton_function():

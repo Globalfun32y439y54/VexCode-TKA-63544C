@@ -44,6 +44,53 @@ wait(200, MSEC)
 # clear the console to make sure we don't have the REPL in the console
 print("\033[2J")
 
+
+
+# define variables used for controlling motors based on controller inputs
+controller_1_left_shoulder_control_motors_stopped = True
+controller_1_right_shoulder_control_motors_stopped = True
+
+# define a task that will handle monitoring inputs from controller_1
+def rc_auto_loop_function_controller_1():
+    global controller_1_left_shoulder_control_motors_stopped, controller_1_right_shoulder_control_motors_stopped, remote_control_code_enabled
+    # process the controller input every 20 milliseconds
+    # update the motors based on the input values
+    while True:
+        if remote_control_code_enabled:
+            # check the buttonL1/buttonL2 status
+            # to control DT_L2
+            if controller_1.buttonL1.pressing():
+                DT_L2.spin(FORWARD)
+                controller_1_left_shoulder_control_motors_stopped = False
+            elif controller_1.buttonL2.pressing():
+                DT_L2.spin(REVERSE)
+                controller_1_left_shoulder_control_motors_stopped = False
+            elif not controller_1_left_shoulder_control_motors_stopped:
+                DT_L2.stop()
+                # set the toggle so that we don't constantly tell the motor to stop when
+                # the buttons are released
+                controller_1_left_shoulder_control_motors_stopped = True
+            # check the buttonR1/buttonR2 status
+            # to control DT_L1
+            if controller_1.buttonR1.pressing():
+                DT_L1.spin(FORWARD)
+                controller_1_right_shoulder_control_motors_stopped = False
+            elif controller_1.buttonR2.pressing():
+                DT_L1.spin(REVERSE)
+                controller_1_right_shoulder_control_motors_stopped = False
+            elif not controller_1_right_shoulder_control_motors_stopped:
+                DT_L1.stop()
+                # set the toggle so that we don't constantly tell the motor to stop when
+                # the buttons are released
+                controller_1_right_shoulder_control_motors_stopped = True
+        # wait before repeating the process
+        wait(20, MSEC)
+
+# define variable for remote controller enable/disable
+remote_control_code_enabled = True
+
+rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
+
 #endregion VEXcode Generated Robot Configuration
 
 # ------------------------------------------

@@ -16,7 +16,6 @@ DT_R2 = Motor(Ports.PORT19, GearSetting.RATIO_6_1, False)
 DT_R3 = Motor(Ports.PORT20, GearSetting.RATIO_6_1, False)
 Stage1Motor = Motor(Ports.PORT4, GearSetting.RATIO_18_1, True)
 Stage2Motor = Motor(Ports.PORT6, GearSetting.RATIO_6_1, True)
-Preload_Arm = DigitalOut(brain.three_wire_port.a)
 
 
 # wait for rotation sensor to fully initialize
@@ -112,13 +111,6 @@ Ramp_voltage = 0
 
 def when_started1():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Initializes required variables during robot startup
-    Ramp_delay = 0.02
-    Velocity_step = 5
-    Number_of_steps = 100 / Velocity_step
-
-def when_started2():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Synchronizes The Voltage Of The Left And Right Drivetrain Motors With The Controller's Joystick Input
     while True:
         DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
@@ -129,92 +121,4 @@ def when_started2():
         DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
         wait(5, MSEC)
 
-def onauton_autonomous_0():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Sets left and right drive train motor to velocity set by autonomous code
-    while True:
-        DT_L1.set_velocity(DT_L_Velocity, PERCENT)
-        DT_L2.set_velocity(DT_L_Velocity, PERCENT)
-        DT_L3.set_velocity(DT_L_Velocity, PERCENT)
-        DT_R1.set_velocity(DT_R_Velocity, PERCENT)
-        DT_R2.set_velocity(DT_R_Velocity, PERCENT)
-        DT_R3.set_velocity(DT_R_Velocity, PERCENT)
-        wait(5, MSEC)
-
-def onauton_autonomous_1():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Tells to motors to spin
-    while True:
-        DT_L1.spin(FORWARD)
-        DT_L2.spin(FORWARD)
-        DT_L3.spin(FORWARD)
-        DT_R1.spin(FORWARD)
-        DT_R2.spin(FORWARD)
-        DT_R3.spin(FORWARD)
-        wait(5, MSEC)
-
-def onauton_autonomous_2():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    while True:
-        # Spins intake motors upon autonomous startup
-        Stage1Motor.spin(FORWARD, Intake_Voltage, VOLT)
-        # Spins vertical stage motors upon autonomous code request
-        Stage2Motor.spin(FORWARD, Ramp_voltage, VOLT)
-        wait(5, MSEC)
-
-def onauton_autonomous_3():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    Intake_Voltage = 12
-    Ramp_voltage = 4
-    # Drive forward to the first 3 blocks
-    # Acceleration ramp up
-    DT_L_Velocity = 50
-    DT_R_Velocity = 50
-    wait(0.9, SECONDS)
-    # Acceleration ramp down *turns right and continues forward
-    DT_L_Velocity = 0
-    DT_R_Velocity = 0
-    wait(1.7, SECONDS)
-    DT_R_Velocity = 25
-    # Acceleration ramp down to zero
-    wait(1, SECONDS)
-    DT_R_Velocity = 0
-    wait(0.1, SECONDS)
-    DT_R_Velocity = 25
-    DT_L_Velocity = 25
-    wait(0.2, SECONDS)
-    DT_R_Velocity = 0
-    DT_L_Velocity = 0
-
-# create a function for handling the starting and stopping of all autonomous tasks
-def vexcode_auton_function():
-    # Start the autonomous control tasks
-    auton_task_0 = Thread( onauton_autonomous_0 )
-    auton_task_1 = Thread( onauton_autonomous_1 )
-    auton_task_2 = Thread( onauton_autonomous_2 )
-    auton_task_3 = Thread( onauton_autonomous_3 )
-    # wait for the driver control period to end
-    while( competition.is_autonomous() and competition.is_enabled() ):
-        # wait 10 milliseconds before checking again
-        wait( 10, MSEC )
-    # Stop the autonomous control tasks
-    auton_task_0.stop()
-    auton_task_1.stop()
-    auton_task_2.stop()
-    auton_task_3.stop()
-
-def vexcode_driver_function():
-    # Start the driver control tasks
-
-    # wait for the driver control period to end
-    while( competition.is_driver_control() and competition.is_enabled() ):
-        # wait 10 milliseconds before checking again
-        wait( 10, MSEC )
-    # Stop the driver control tasks
-
-
-# register the competition functions
-competition = Competition( vexcode_driver_function, vexcode_auton_function )
-
-ws2 = Thread( when_started2 )
 when_started1()

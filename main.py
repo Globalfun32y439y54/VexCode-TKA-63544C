@@ -8,14 +8,14 @@ brain=Brain()
 
 # Robot configuration code
 controller_1 = Controller(PRIMARY)
-DT_L1 = Motor(Ports.PORT11, GearSetting.RATIO_6_1, True)
-DT_L2 = Motor(Ports.PORT12, GearSetting.RATIO_6_1, True)
-DT_L3 = Motor(Ports.PORT13, GearSetting.RATIO_6_1, True)
-DT_R1 = Motor(Ports.PORT18, GearSetting.RATIO_6_1, False)
-DT_R2 = Motor(Ports.PORT19, GearSetting.RATIO_6_1, False)
-DT_R3 = Motor(Ports.PORT20, GearSetting.RATIO_6_1, False)
-Stage1Motor = Motor(Ports.PORT4, GearSetting.RATIO_18_1, True)
-Stage2Motor = Motor(Ports.PORT6, GearSetting.RATIO_6_1, True)
+DT_L1 = Motor(Ports.PORT1, GearSetting.RATIO_6_1, True)
+DT_L2 = Motor(Ports.PORT2, GearSetting.RATIO_6_1, True)
+DT_L3 = Motor(Ports.PORT3, GearSetting.RATIO_6_1, True)
+DT_R1 = Motor(Ports.PORT5, GearSetting.RATIO_6_1, False)
+DT_R2 = Motor(Ports.PORT6, GearSetting.RATIO_6_1, False)
+DT_R3 = Motor(Ports.PORT7, GearSetting.RATIO_6_1, False)
+Stage1Motor = Motor(Ports.PORT11, GearSetting.RATIO_18_1, True)
+Stage2Motor = Motor(Ports.PORT12, GearSetting.RATIO_6_1, True)
 
 
 # wait for rotation sensor to fully initialize

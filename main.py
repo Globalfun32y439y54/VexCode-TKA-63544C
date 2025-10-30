@@ -74,4 +74,17 @@ def when_started1():
         DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
         wait(5, MSEC)
 
+def when_started2():
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+    # Push down on R1 to activated long goal scoring
+    while True:
+        if controller_1.buttonR1.pressing():
+            Stage1Motor.spin(FORWARD, 10, VOLT)
+            Stage2Motor.spin(FORWARD, 10, VOLT)
+        if not controller_1.buttonR1.pressing():
+            Stage1Motor.stop()
+            Stage2Motor.stop()
+        wait(5, MSEC)
+
+ws2 = Thread( when_started2 )
 when_started1()

@@ -111,27 +111,41 @@ Ramp_voltage = 0
 
 def when_started1():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Synchronizes The Voltage Of The Left And Right Drivetrain Motors With The Controller's Joystick Input
+    # Synchronizes The velocity to The Left And Right Drivetrain Motors With The Controller's Joystick Input
     while True:
-        DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
-        DT_L2.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
-        DT_L3.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
-        DT_R1.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
-        DT_R2.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
-        DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
+        DT_L1.set_velocity((controller_1.axis3.position() / 1), PERCENT)
+        DT_L2.set_velocity((controller_1.axis3.position() / 1), PERCENT)
+        DT_L3.set_velocity((controller_1.axis3.position() / 1), PERCENT)
+        DT_R1.set_velocity((controller_1.axis2.position() / 1), PERCENT)
+        DT_R2.set_velocity((controller_1.axis2.position() / 1), PERCENT)
+        DT_R3.set_velocity((controller_1.axis2.position() / 1), PERCENT)
         wait(5, MSEC)
 
 def when_started2():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Push down on R1 to activated long goal scoring
+    # Set stage one and two motors to 100 velocity at the start of the match
+    Stage1Motor.set_velocity(100, PERCENT)
+    Stage2Motor.set_velocity(100, PERCENT)
+
+def when_started3():
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+    # Spin left side of the drivetrain
     while True:
-        if controller_1.buttonR1.pressing():
-            Stage1Motor.spin(FORWARD, 10, VOLT)
-            Stage2Motor.spin(FORWARD, 10, VOLT)
-        if not controller_1.buttonR1.pressing():
-            Stage1Motor.stop()
-            Stage2Motor.stop()
+        DT_L1.spin(FORWARD)
+        DT_L2.spin(FORWARD)
+        DT_L3.spin(FORWARD)
+        wait(5, MSEC)
+
+def when_started4():
+    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+    # Spin right side of the drivetrain
+    while True:
+        DT_R1.spin(FORWARD)
+        DT_R2.spin(FORWARD)
+        DT_R3.spin(FORWARD)
         wait(5, MSEC)
 
 ws2 = Thread( when_started2 )
+ws3 = Thread( when_started3 )
+ws4 = Thread( when_started4 )
 when_started1()

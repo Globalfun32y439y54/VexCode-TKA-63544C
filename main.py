@@ -126,26 +126,8 @@ def when_started2():
     # Set stage one and two motors to 100 velocity at the start of the match
     Stage1Motor.set_velocity(100, PERCENT)
     Stage2Motor.set_velocity(100, PERCENT)
-
-def when_started3():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Spin left side of the drivetrain
-    while True:
-        DT_L1.spin(FORWARD)
-        DT_L2.spin(FORWARD)
-        DT_L3.spin(FORWARD)
-        wait(5, MSEC)
-
-def when_started4():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
-    # Spin right side of the drivetrain
-    while True:
-        DT_R1.spin(FORWARD)
-        DT_R2.spin(FORWARD)
-        DT_R3.spin(FORWARD)
-        wait(5, MSEC)
+    Stage1Motor.set_max_torque(100, PERCENT)
+    Stage2Motor.set_max_torque(100, PERCENT)
 
 ws2 = Thread( when_started2 )
-ws3 = Thread( when_started3 )
-ws4 = Thread( when_started4 )
 when_started1()

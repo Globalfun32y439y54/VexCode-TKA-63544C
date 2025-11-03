@@ -113,12 +113,12 @@ def when_started1():
     global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
     # Synchronizes The velocity to The Left And Right Drivetrain Motors With The Controller's Joystick Input
     while True:
-        DT_L1.set_velocity((controller_1.axis3.position() / 1), PERCENT)
-        DT_L2.set_velocity((controller_1.axis3.position() / 1), PERCENT)
-        DT_L3.set_velocity((controller_1.axis3.position() / 1), PERCENT)
-        DT_R1.set_velocity((controller_1.axis2.position() / 1), PERCENT)
-        DT_R2.set_velocity((controller_1.axis2.position() / 1), PERCENT)
-        DT_R3.set_velocity((controller_1.axis2.position() / 1), PERCENT)
+        DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
+        DT_L2.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
+        DT_L3.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
+        DT_R1.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
+        DT_R2.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
+        DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
         wait(5, MSEC)
 
 def when_started2():

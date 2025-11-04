@@ -1,3 +1,10 @@
+# 10/31/25
+
+- [Removed uneeded code on controler](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/3453762e9e57a9b0574b1a48669ec215ff7744a4)
+- [Switched back to voltage for drivetrain](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/64781974f01d338982f1e94b8a166bf39197565b)
+
+----------
+
 # 10/30/25
 
 - [Refactor drivetrain motor control](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/75ed2501155e7cf4a809ddc18c960d052383d797)

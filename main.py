@@ -101,17 +101,9 @@ rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
 # 
 # ------------------------------------------
 
-DT_L_Velocity = 0
-DT_R_Velocity = 0
-Intake_Voltage = 0
-Velocity_step = 0
-Number_of_steps = 0
-Ramp_delay = 0
-Ramp_voltage = 0
-
-def when_started1():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+def ondriver_drivercontrol_0():
     # Synchronizes The velocity to The Left And Right Drivetrain Motors With The Controller's Joystick Input
+    Stage1Motor.stop()
     while True:
         DT_L1.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
         DT_L2.spin(FORWARD, (controller_1.axis3.position() / 1), VOLT)
@@ -121,13 +113,35 @@ def when_started1():
         DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
         wait(5, MSEC)
 
-def when_started2():
-    global DT_L_Velocity, DT_R_Velocity, Intake_Voltage, Velocity_step, Number_of_steps, Ramp_delay, Ramp_voltage
+def ondriver_drivercontrol_1():
     # Set stage one and two motors to 100 velocity at the start of the match
     Stage1Motor.set_velocity(100, PERCENT)
     Stage2Motor.set_velocity(100, PERCENT)
     Stage1Motor.set_max_torque(100, PERCENT)
     Stage2Motor.set_max_torque(100, PERCENT)
 
-ws2 = Thread( when_started2 )
-when_started1()
+# create a function for handling the starting and stopping of all autonomous tasks
+def vexcode_auton_function():
+    # Start the autonomous control tasks
+    # wait for the driver control period to end
+    while( competition.is_autonomous() and competition.is_enabled() ):
+        # wait 10 milliseconds before checking again
+        wait( 10, MSEC )
+    # Stop the autonomous control tasks
+
+def vexcode_driver_function():
+    # Start the driver control tasks
+    driver_control_task_0 = Thread( ondriver_drivercontrol_0 )
+    driver_control_task_1 = Thread( ondriver_drivercontrol_1 )
+
+    # wait for the driver control period to end
+    while( competition.is_driver_control() and competition.is_enabled() ):
+        # wait 10 milliseconds before checking again
+        wait( 10, MSEC )
+    # Stop the driver control tasks
+    driver_control_task_0.stop()
+    driver_control_task_1.stop()
+
+
+# register the competition functions
+competition = Competition( vexcode_driver_function, vexcode_auton_function )

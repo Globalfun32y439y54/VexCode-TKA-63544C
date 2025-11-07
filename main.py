@@ -102,6 +102,7 @@ rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
 # ------------------------------------------
 
 def ondriver_drivercontrol_0():
+    global Stop, my_event
     # Synchronizes The velocity to The Left And Right Drivetrain Motors With The Controller's Joystick Input
     Stage1Motor.stop()
     while True:
@@ -114,6 +115,7 @@ def ondriver_drivercontrol_0():
         wait(5, MSEC)
 
 def ondriver_drivercontrol_1():
+    global Stop, my_event
     # Set stage one and two motors to 100 velocity at the start of the match
     Stage1Motor.set_velocity(100, PERCENT)
     Stage2Motor.set_velocity(100, PERCENT)
@@ -145,3 +147,4 @@ def vexcode_driver_function():
 
 # register the competition functions
 competition = Competition( vexcode_driver_function, vexcode_auton_function )
+

@@ -1,6 +1,15 @@
+# 11/07/25
+
+- [Refactor driver control and added all of autonomous code](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/555067645aad111b91dc94867319275e5c15672a)
+- [Add digital output initialization for three-wire on port A](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/1d6d8b855fa513b322dc413e2d8792ad9a163cc3)
+- [Add global variables to driver control functions](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/9e5bf07a7451d336f2d57a2db28ed27d829008fe)
+- [Refactor driver control functions and remove variables](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/61422811940b6741330695feb5d42714cf580d4f)
+
+----------
+
 # 10/31/25
 
-- [Removed uneeded code on controler](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/3453762e9e57a9b0574b1a48669ec215ff7744a4)
+- [Removed uneeded code on controller](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/3453762e9e57a9b0574b1a48669ec215ff7744a4)
 - [Switched back to voltage for drivetrain](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/64781974f01d338982f1e94b8a166bf39197565b)
 
 ----------
@@ -25,7 +34,7 @@
 
 - [Removed unneded code and updated comments](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/bde4941953043cb6e1cc08901666d8c536125437)
 - [Updated ramp voltage and updated autonomous code](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/ee41b506096dcabefa68a5a31dfcc41349a4c82a)
-- [Mapped controlers buttons to stpin stage one and two moters](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/6bdd360045e45e8053c842c2d9c474381fe632a7)
+- [Mapped controllers' buttons to spin stage one and two motors](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/6bdd360045e45e8053c842c2d9c474381fe632a7)
 
 ----------
 
@@ -33,7 +42,7 @@
 
 - [Updated autonomous code and removed unneeded code](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/10c14303e66e882877b2d704c9c13de38031583d)
 - [Added stage 2 motor code](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/055512c838d4903ac63bfeae6dc18927da9bce72)
-- [Added and removed varibales](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/ffa24150712276393d65168d15b4def4af704c32)
+- [Added and removed variables](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/ffa24150712276393d65168d15b4def4af704c32)
 - [Changed Motor ports](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/316d48a3565f0475204e71cb7f9fc3c47982eede)
 
 ----------
@@ -53,7 +62,7 @@
 # 9/30/25
 
 - [Changed Stage1 and Stage2 motor ports](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/9575101b6d31f3376b70bebdfd1751b04c03bb88)
-- [Added autonomous varibales and start of autonomous](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/12cf33df6d0615b79c19ef700ddc4759bc687824)
+- [Added autonomous variables and start of autonomous](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/12cf33df6d0615b79c19ef700ddc4759bc687824)
 - [Updated more of the autonomous code](https://github.com/Globalfun32y439y54/VexCode-TKA-63544C/commit/e2a6c3f3b8f2324989fe92cc0dc2891f9b83625c)
 
 ----------

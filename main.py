@@ -16,6 +16,7 @@ DT_R2 = Motor(Ports.PORT9, GearSetting.RATIO_6_1, False)
 DT_R3 = Motor(Ports.PORT8, GearSetting.RATIO_6_1, False)
 Stage1Motor = Motor(Ports.PORT7, GearSetting.RATIO_6_1, True)
 Stage2Motor = Motor(Ports.PORT6, GearSetting.RATIO_6_1, True)
+digital_out_a = DigitalOut(brain.three_wire_port.a)
 
 
 # wait for rotation sensor to fully initialize

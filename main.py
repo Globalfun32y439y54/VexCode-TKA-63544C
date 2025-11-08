@@ -95,15 +95,15 @@ rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
 
 # ------------------------------------------
 # 
-# 	Project: PushbackDTCodePhilosophers
+# 	Project: PushbackCodeFailing
 #	Author: BrayDog2010
-#	Created: 9/10/25
+#	Created: 11/07/25
 #	Description: VEXcode V5 Python Project For Team TKA 63544C
 # 
 # ------------------------------------------
 
 def ondriver_drivercontrol_0():
-    global Stop, my_event
+    global Stop
     # Synchronizes The velocity to The Left And Right Drivetrain Motors With The Controller's Joystick Input
     Stage1Motor.stop()
     while True:
@@ -115,27 +115,104 @@ def ondriver_drivercontrol_0():
         DT_R3.spin(FORWARD, (controller_1.axis2.position() / 1), VOLT)
         wait(5, MSEC)
 
-def ondriver_drivercontrol_1():
-    global Stop, my_event
+def when_started1():
+    global Stop
     # Set stage one and two motors to 100 velocity at the start of the match
     Stage1Motor.set_velocity(100, PERCENT)
     Stage2Motor.set_velocity(100, PERCENT)
     Stage1Motor.set_max_torque(100, PERCENT)
     Stage2Motor.set_max_torque(100, PERCENT)
 
+def onauton_autonomous_0():
+    global Stop
+    digital_out_a.set(True)
+    for repeat_count in range(1):
+        DT_L1.set_velocity(56, PERCENT)
+        DT_L2.set_velocity(56, PERCENT)
+        DT_L3.set_velocity(56, PERCENT)
+        DT_R1.set_velocity(23, PERCENT)
+        DT_R2.set_velocity(23, PERCENT)
+        DT_R3.set_velocity(23, PERCENT)
+        wait(5, MSEC)
+    for repeat_count2 in range(1):
+        DT_R1.spin_for(FORWARD, 10, TURNS, wait=False)
+        DT_R2.spin_for(FORWARD, 10, TURNS, wait=False)
+        DT_R3.spin_for(FORWARD, 10, TURNS, wait=False)
+        DT_L1.spin_for(FORWARD, 10, TURNS, wait=False)
+        DT_L2.spin_for(FORWARD, 10, TURNS, wait=False)
+        DT_L3.spin_for(FORWARD, 10, TURNS, wait=False)
+        wait(5, MSEC)
+    wait(2.36, SECONDS)
+    for repeat_count3 in range(1):
+        DT_R1.stop()
+        DT_R2.stop()
+        DT_R3.stop()
+        DT_L1.stop()
+        DT_L2.stop()
+        DT_L3.stop()
+        wait(5, MSEC)
+    Stage1Motor.spin(FORWARD)
+    for repeat_count4 in range(2):
+        DT_R1.spin_for(REVERSE, 120, DEGREES, wait=False)
+        DT_R2.spin_for(REVERSE, 120, DEGREES, wait=False)
+        DT_R3.spin_for(REVERSE, 120, DEGREES, wait=False)
+        DT_L1.spin_for(REVERSE, 120, DEGREES, wait=False)
+        DT_L2.spin_for(REVERSE, 120, DEGREES, wait=False)
+        DT_L3.spin_for(REVERSE, 120, DEGREES, wait=False)
+        wait(0.5, SECONDS)
+        DT_R1.spin_for(FORWARD, 140, DEGREES, wait=False)
+        DT_R2.spin_for(FORWARD, 140, DEGREES, wait=False)
+        DT_R3.spin_for(FORWARD, 140, DEGREES, wait=False)
+        DT_L1.spin_for(FORWARD, 140, DEGREES, wait=False)
+        DT_L2.spin_for(FORWARD, 140, DEGREES, wait=False)
+        DT_L3.spin_for(FORWARD, 140, DEGREES, wait=False)
+        wait(0.5, SECONDS)
+        wait(5, MSEC)
+    for repeat_count5 in range(1):
+        DT_L1.set_velocity(25, PERCENT)
+        DT_L2.set_velocity(25, PERCENT)
+        DT_L3.set_velocity(25, PERCENT)
+        DT_R1.set_velocity(25, PERCENT)
+        DT_R2.set_velocity(25, PERCENT)
+        DT_R3.set_velocity(25, PERCENT)
+        wait(5, MSEC)
+    for repeat_count6 in range(1):
+        DT_R1.spin_for(REVERSE, 10, TURNS, wait=False)
+        DT_R2.spin_for(REVERSE, 10, TURNS, wait=False)
+        DT_R3.spin_for(REVERSE, 10, TURNS, wait=False)
+        DT_L1.spin_for(REVERSE, 10, TURNS, wait=False)
+        DT_L2.spin_for(REVERSE, 10, TURNS, wait=False)
+        DT_L3.spin_for(REVERSE, 10, TURNS, wait=False)
+        wait(5, MSEC)
+    Stage1Motor.stop()
+    wait(2, SECONDS)
+    for repeat_count7 in range(1):
+        DT_R1.stop()
+        DT_R2.stop()
+        DT_R3.stop()
+        DT_L1.stop()
+        DT_L2.stop()
+        DT_L3.stop()
+        wait(5, MSEC)
+    wait(0.1, SECONDS)
+    Stage1Motor.spin(FORWARD)
+    Stage2Motor.spin(FORWARD)
+    digital_out_a.set(False)
+
 # create a function for handling the starting and stopping of all autonomous tasks
 def vexcode_auton_function():
     # Start the autonomous control tasks
+    auton_task_0 = Thread( onauton_autonomous_0 )
     # wait for the driver control period to end
     while( competition.is_autonomous() and competition.is_enabled() ):
         # wait 10 milliseconds before checking again
         wait( 10, MSEC )
     # Stop the autonomous control tasks
+    auton_task_0.stop()
 
 def vexcode_driver_function():
     # Start the driver control tasks
     driver_control_task_0 = Thread( ondriver_drivercontrol_0 )
-    driver_control_task_1 = Thread( ondriver_drivercontrol_1 )
 
     # wait for the driver control period to end
     while( competition.is_driver_control() and competition.is_enabled() ):
@@ -143,9 +220,9 @@ def vexcode_driver_function():
         wait( 10, MSEC )
     # Stop the driver control tasks
     driver_control_task_0.stop()
-    driver_control_task_1.stop()
 
 
 # register the competition functions
 competition = Competition( vexcode_driver_function, vexcode_auton_function )
 
+when_started1()
